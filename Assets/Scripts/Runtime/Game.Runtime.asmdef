@@ -2,7 +2,9 @@
     "name": "Game.Runtime",
     "rootNamespace": "",
     "references": [
-        "VContainer"
+        "VContainer",
+        "Eflatun.SceneReference",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
