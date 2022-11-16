@@ -8,11 +8,12 @@ namespace Runtime
     public class GameLifetimeScope : LifetimeScope
     {
         [SerializeField] private SceneReference _sceneRef;
+        [SerializeField] private UnityComponent _unityComponent;
         
         protected override void Configure(IContainerBuilder builder)
         {
             // Register IStartable + IAsyncStartable
-            builder.Register<GameEntryPoint>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.RegisterEntryPoint<GameEntryPoint>();
             
             // Zenject: Container.Bind<Foo>().AsSingle();
             builder.Register<Foo>(Lifetime.Singleton);
@@ -33,9 +34,12 @@ namespace Runtime
             
             builder.Register<ChangeSceneByButtonClickedController>(Lifetime.Singleton).AsImplementedInterfaces();
 
+            // Register unity component
+            builder.RegisterComponent(_unityComponent);
+
             // TODO: Check
             // builder.Register<Bar>(Lifetime.Scoped);
-            
+
             // TODO: Registering with id
             // TODO: Prefab instantiation
             // TODO: Prefab instantiation with arguments
