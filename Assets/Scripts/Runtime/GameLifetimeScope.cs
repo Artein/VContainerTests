@@ -12,11 +12,11 @@ namespace Runtime
         
         protected override void Configure(IContainerBuilder builder)
         {
-            // Register IStartable + IAsyncStartable
-            builder.RegisterEntryPoint<GameEntryPoint>();
-            
             // Zenject: Container.Bind<Foo>().AsSingle();
-            builder.Register<Foo>(Lifetime.Singleton);
+            builder.Register<PlainClassInjectionReceiver>(Lifetime.Singleton).AsImplementedInterfaces();
+            
+            // Register all special VContainer interfaces
+            builder.RegisterEntryPoint<AllSpecialInterfacesReceiver>();
 
             // Zenject: Container.Bind<IBar>().To<Bar>().AsSingle();
             builder.Register<IBar, Bar>(Lifetime.Singleton);
@@ -27,25 +27,29 @@ namespace Runtime
             // Register transient copy (unique for each request)
             builder.Register<LoadSceneCommand>(Lifetime.Transient).AsSelf();
 
-            // Register ITickable
+            // Register InputManager and all its interfaces
             builder.Register<InputManager>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
 
+            // Instance registration
             builder.RegisterInstance(_sceneRef);
             
             builder.Register<ChangeSceneByButtonClickedController>(Lifetime.Singleton).AsImplementedInterfaces();
 
             // Register unity component
             builder.RegisterComponent(_unityComponent);
+            
+            // MISSING: Registration with execution order
+            // builder.RegisterEntryPoint<AAAA>(ExecutionOrder);
 
-            // TODO: Check
-            // builder.Register<Bar>(Lifetime.Scoped);
-
+            // TODO: Registration with Scoped lifetime
             // TODO: Registering with id
             // TODO: Prefab instantiation
             // TODO: Prefab instantiation with arguments
             // TODO: Class instantiation
             // TODO: Class instantiation with arguments
             // TODO: Scopes parenting
+            // TODO: Optional injection
+            // TODO: Check IDisposable : With container disposes. (For Lifetime.Singleton / Lifetime.Scoped)
         }
     }
 }
