@@ -12,6 +12,8 @@ namespace Runtime
         
         protected override void Configure(IContainerBuilder builder)
         {
+            UnityEngine.Debug.Log($"{nameof(GameLifetimeScope)}: Configure()", this);
+            
             // Zenject: Container.Bind<Foo>().AsSingle();
             builder.Register<PlainClassInjectionReceiver>(Lifetime.Singleton).AsImplementedInterfaces();
             

@@ -8,6 +8,7 @@ namespace Runtime
         protected override void Configure(IContainerBuilder builder)
         {
             // nothing to do for now
+            UnityEngine.Debug.Log($"{nameof(ChildLifetimeScope)}: Configure()", this);
         }
     }
 }
