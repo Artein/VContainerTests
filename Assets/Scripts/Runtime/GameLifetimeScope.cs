@@ -9,6 +9,7 @@ namespace Runtime
     {
         [SerializeField] private SceneReference _sceneRef;
         [SerializeField] private UnityComponent _unityComponent;
+        [SerializeField] private GameObject _instancePrefab;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -24,6 +25,7 @@ namespace Runtime
             builder.Register<IBar, Bar>(Lifetime.Singleton);
             
             // Zenject: Container.Camera<Foo>().FromComponentInHierarchy().AsSingle();
+            // RegisterComponentInHierarchy always has a Scoped lifetime because the lifetime is equal to the scene.
             builder.RegisterComponentInHierarchy<Camera>();
 
             // Register transient copy (unique for each request)
@@ -36,8 +38,12 @@ namespace Runtime
             builder.RegisterInstance(_sceneRef);
             
             builder.Register<ChangeSceneByButtonClickedController>(Lifetime.Singleton).AsImplementedInterfaces();
+            
+            // WithParameter provides arguments to constructor or constructor method only
+            // MISSING: Providing additional parameters that injects via field or property
+            builder.Register<InstantiatePrefabOnKeyClick>(Lifetime.Singleton).WithParameter(_instancePrefab).AsImplementedInterfaces();
 
-            // Register unity component
+            // Register unity component. In this case, the registered MonoBehaviour will both Inject and be Injected into other classes.
             builder.RegisterComponent(_unityComponent);
             
             // MISSING: Registration with execution order
@@ -46,9 +52,9 @@ namespace Runtime
             // TODO: Registration with Scoped lifetime
             // TODO: Registering with id
             // TODO: Prefab instantiation
-            // TODO: Prefab instantiation with arguments
+            // TODO: Prefab instantiation with arguments/parameters/named parameter
             // TODO: Class instantiation
-            // TODO: Class instantiation with arguments
+            // TODO: Class instantiation with arguments/parameters/named parameter
             // TODO: Scopes parenting
             // TODO: Optional injection
             // TODO: Check IDisposable : With container disposes. (For Lifetime.Singleton / Lifetime.Scoped)

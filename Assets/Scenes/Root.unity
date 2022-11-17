@@ -289,6 +289,7 @@ MonoBehaviour:
     sceneAsset: {fileID: 102900000, guid: 73f124d0110304872bc9f1584fafd5ca, type: 3}
     sceneAssetGuidHex: 73f124d0110304872bc9f1584fafd5ca
   _unityComponent: {fileID: 1983705356}
+  _instancePrefab: {fileID: 2953605721353833860, guid: d495a6de22a464839a7b0f438ed7b0c4, type: 3}
 --- !u!4 &1019977110
 Transform:
   m_ObjectHideFlags: 0

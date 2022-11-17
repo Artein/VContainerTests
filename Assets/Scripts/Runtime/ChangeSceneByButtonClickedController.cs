@@ -12,15 +12,15 @@ namespace Runtime
 
         void IInitializable.Initialize()
         {
-            _inputManager.ButtonClicked += OnButtonClicked;
+            _inputManager.MousePrimaryButtonClicked += OnMousePrimaryButtonClicked;
         }
 
         void IDisposable.Dispose()
         {
-            _inputManager.ButtonClicked -= OnButtonClicked;
+            _inputManager.MousePrimaryButtonClicked -= OnMousePrimaryButtonClicked;
         }
 
-        private void OnButtonClicked()
+        private void OnMousePrimaryButtonClicked()
         {
             _loadSceneCommand.PerformAsync(default).Forget();
         }
