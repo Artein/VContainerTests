@@ -41,7 +41,11 @@ namespace Runtime
             
             // WithParameter provides arguments to constructor or constructor method only
             // MISSING: Providing additional parameters that injects via field or property
-            builder.Register<InstantiatePrefabOnKeyClick>(Lifetime.Singleton).WithParameter(_instancePrefab).AsImplementedInterfaces();
+            builder.Register<InstantiatePrefabOnSpaceKeyClick>(Lifetime.Singleton).WithParameter(_instancePrefab).AsImplementedInterfaces();
+
+            // Passing named parameter
+            builder.Register<InstantiatePrefabOnKeyClick>(Lifetime.Singleton).WithParameter(_instancePrefab).WithParameter("keyCode", KeyCode.W)
+                .AsImplementedInterfaces();
 
             // Register unity component. In this case, the registered MonoBehaviour will both Inject and be Injected into other classes.
             builder.RegisterComponent(_unityComponent);
