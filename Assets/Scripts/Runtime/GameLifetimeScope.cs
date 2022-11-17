@@ -52,6 +52,7 @@ namespace Runtime
             // TODO: Scopes parenting
             // TODO: Optional injection
             // TODO: Check IDisposable : With container disposes. (For Lifetime.Singleton / Lifetime.Scoped)
+            // TODO: Manual running of XLifetimeScope (AutoRun is disabled)
         }
     }
 }
